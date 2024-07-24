@@ -1,0 +1,1659 @@
+openapi: 3.0.1
+info:
+  title: iTarget Tecnologia - APIs de Cashback 
+  description: Relação dos APIs de Cashback
+  version: 1.1.0
+  termsOfService: https://mockapi.io
+  contact:
+    name: Ramon Queiroz
+    email: ramon@itaget.com.br
+    url: https://mockapi.io
+  license:
+    name: "Licença: GPLv3"
+    url: https://www.gnu.org/licenses/gpl-3.0.html
+externalDocs:
+  description: Documentação burocrática
+  url: https://drive.google.com/drive/folders/1Cg6jMAidC8RxDRZxExRfA_O3aSxkvlkp
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/RAMONOLIVEIRA08/cashback_campanhas/1.1.0
+  - url: https://cbc.ws.teste.itarget.com.br/api/pt-br/
+    description: API de Teste
+tags:
+  - name: Empresas
+    description: Descrição dos métodos para Empresas
+  - name: Clientes
+    description: Descrição dos métodos para clientes
+  - name: Produtos
+    description: Descrição dos métodos para Produtos
+  - name: Operacoes
+    description: Descrição dos métodos para Operações
+  - name: Campanhas
+    description: Descrição dos métodos para Campanha
+  - name: Clientes Empresas
+    description: Descrição dos métodos de vinculaçao de clientes a Empresas
+  - name: Adesao Clientes Campanhas
+    description: Descrição dos métodos de vinculações de clientes a campanhas
+  - name: Produtos Campanhas
+    description: Descrição dos métodos de vinculações de Produtos a Campanhas
+  - name: Transacoes
+    description: Descrição dos métodos de apĺicação das transações
+paths:
+  /company:
+    get:
+      tags:
+        - Empresas
+      summary: Recupera detalhes sobre as empresas
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Company"
+        '404':
+          description: Empresa não encontrada
+          content:
+            application/json:
+              example: Not Found
+    post:
+      tags:
+        - Empresas
+      summary: Cria nova empresa
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CompanyPost"
+      responses:
+        '201':
+          description: Sucesso
+          content:
+            application/json:
+             schema:
+              $ref: "#/components/schemas/Company"
+        '400':
+          description: Não encontrado
+          content:
+            application/json:
+              example: Not Found
+  /company/{id}:
+    parameters:
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+    get:
+      tags:
+        - Empresas
+      summary: Recupera uma entidade pelo ID
+      security:
+        - auth: []
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                 $ref: "#/components/schemas/Company"
+        '404':
+          description: Empresa não encontrada
+          content:
+            application/json:
+              example: Not Found
+    put:
+      tags:
+        - Empresas
+      summary: Atualiza uma empresa existente
+      security:
+        - auth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CompanyPut"
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Company"
+    delete:
+      tags:
+        - Empresas
+      summary: Apaga uma empresa existente
+      security:
+        - auth: []
+      responses:
+        '200':
+          description: Empresa deletada com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Empresa deletada com sucesso
+        '404':
+          description: Empresa não encontrada
+          content:
+            application/json:
+              example: Not Found
+  /client:
+    get:
+     tags:
+     - Clientes
+     summary: Recupera detalhes sobre os Clientes
+     responses:
+      '200':
+        description: Sucesso
+        content:
+         application/json:
+           schema:
+            $ref: "#/components/schemas/Client"
+      '404':
+          description: Cliente não encontrado
+          content:
+            application/json:
+              example: Not Found
+    post:
+      tags:
+      - Clientes
+      summary: Cria novo cliente
+      requestBody:
+        content:
+          application/json:
+            schema:
+             $ref: "#/components/schemas/ClientPost"
+      responses:
+        '201':
+         description: Sucesso
+         content:
+            application/json:
+             schema:
+              $ref: "#/components/schemas/Client"
+        '400':
+            description: Cliente Não encontrado
+            content:
+              application/json:
+                example: Not Found
+  /client/{id}:
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+      get:
+        tags:
+        - Clientes
+        summary: Recupera um cliente pelo ID
+        security:
+          - auth: []
+        responses:
+          '200':
+            description: Sucesso
+            content:
+              application/json:
+                schema:
+                   $ref: "#/components/schemas/Client"
+          '404':
+            description: Cliente não encontrada
+            content:
+              application/json:
+                example: Not Found
+      put:
+        tags:
+        - Clientes
+        summary: Atualiza um cliente existente
+        security:
+          - auth: []
+        requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientPut"
+        responses:
+         '200':
+           description: Sucesso
+           content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Client"
+         '404':
+            description: Cliente não encontrado
+            content:
+              application/json:
+                example: Not Found
+      delete:
+        tags:
+          - Clientes
+        summary: Apaga um cliente existente
+        security:
+          - auth: []
+        responses:
+          '200':
+            description: Cliente deletado com sucesso
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: Cliente deletado com sucesso
+          '404':
+            description: Cliente não encontrado
+            content:
+              application/json:
+                example: Not Found
+  /product:
+    get:
+      tags:
+        - Produtos
+      summary: Recupera detalhes sobre os Produtos
+      responses:
+        '200':
+          description: Sucesso
+          content:
+           application/json:
+             schema:
+               $ref: '#/components/schemas/Product'
+             example: Operação bem-sucedida
+        '404':
+          description: Produto não encontrado
+          content:
+            application/json:
+              example: Not Found
+    post:
+      tags:
+        - Produtos
+      summary: Cria novo Produto
+      requestBody:
+        content:
+          application/json:
+             schema:
+              $ref: '#/components/schemas/ProductPost'
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '400':
+          description: Produto Não encontrado
+          content:
+            applicatio/json:
+              example: Not Found
+  /product/{id}:
+    parameters:
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+    get:
+      tags:
+        - Produtos
+      summary: Recupera um Produto pelo ID
+      security:
+        - auth: []
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+              example: Busca realizada com Sucesso
+        '404':
+          description: Produto não encontrado
+          content:
+            application/json:
+              example: Not Found
+    put:
+      tags:
+        - Produtos
+      summary: Atualiza um Produto existente
+      security:
+        - auth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+               $ref: '#/components/schemas/ProductPut'
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+               $ref: '#/components/schemas/ProductPut'
+        '404':
+          description: Produto não encontrado
+          content:
+            application/json:
+              example: Not Found
+    delete:
+      tags:
+       - Produtos
+      summary: Apaga um Produto existente
+      security:
+        - auth: []
+      responses:
+        '200':
+          description: Produto deletado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Produto deletado com sucesso
+        '404':
+          description: Produto não encontrado
+          content:
+            application/json:
+              example: Not Found
+  /operation:
+    get:
+      tags:
+        - Operacoes
+      summary: Recupera detalhes sobre as Operações
+      responses:
+        '200':
+          description: Sucesso
+          content:
+           application/json:
+             schema:
+               $ref: '#/components/schemas/Operation'
+             example: Operação bem-sucedida
+        '404':
+          description: Operação não encontrada
+          content:
+            application/json:
+              example: Not Found
+    post:
+      tags:
+        - Operacoes
+      summary: Cria nova Operação
+      requestBody:
+        content:
+          application/json:
+             schema:
+              $ref: '#/components/schemas/OperationPost'
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+        '400':
+          description: Operação Não encontrada
+          content:
+            applicatio/json:
+              example: Not Found
+  /operation/{id}:
+    parameters:
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+    get:
+      tags:
+        - Operacoes
+      summary: Recupera uma Operaçãoo pelo ID
+      security:
+        - auth: []
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+              example: Busca realizada com Sucesso
+        '404':
+          description: Operação não encontrada
+          content:
+            application/json:
+              example: Not Found
+    put:
+      tags:
+        - Operacoes
+      summary: Atualiza uma Operação existente
+      security:
+        - auth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+               $ref: '#/components/schemas/OperationPut'
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+               $ref: '#/components/schemas/Operation'
+        '404':
+          description: Operação não encontrada
+          content:
+            application/json:
+              example: Not Found
+    delete:
+      tags:
+        - Operacoes
+      summary: Apaga uma Operação existente
+      security:
+        - auth: []
+      responses:
+        '200':
+          description: Operação deletada com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Operação deletada com sucesso
+        '404':
+          description: Operação não encontrada
+          content:
+            application/json:
+              example: Not Found
+  /campaign:
+    get:
+      tags:
+        - Campanhas
+      summary: Recupera detalhes sobre as Campanhas
+      responses:
+        "200":
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Campaign'
+              example: Operação bem-sucedida
+        "404":
+          description: Campanha não encontrada
+          content:
+            application/json:
+              example: Not Found
+    post:
+      tags:
+        - Campanhas
+      summary: Cria nova Campanha
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CampaignPost'
+      responses:
+        "200":
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Campaign'
+        "400":
+          description: Campanha Não encontrada
+          content:
+            applicatio/json:
+              example: Not Found
+  /campaign/{id}:
+    get:
+      tags:
+        - Campanhas
+      summary: Recupera uma Campanha pelo ID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Campaign'
+              example: Busca realizada com Sucesso
+        "404":
+          description: Campanha não encontrada
+          content:
+            application/json:
+              example: Not Found
+      security:
+      - auth: []
+    put:
+      tags:
+        - Campanhas
+      summary: Atualiza uma Campanha existente
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CampaignPut'
+      responses:
+        "200":
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Campaign'
+        "404":
+          description: Campanha não encontrada
+          content:
+            application/json:
+              example: Not Found
+      security:
+      - auth: []
+    delete:
+      tags:
+        - Campanhas
+      summary: Apaga uma Campanha existente
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Campanha deletada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Campaign'
+        "404":
+          description: Campanha não encontrada
+          content:
+            application/json:
+              example: Not Found
+      security:
+      - auth: []
+  /client-company:
+    get:
+      tags:
+        - Clientes Empresas
+      summary: Recupera detalhes sobre as Vinculações entre clientes e empresas
+      responses:
+        "200":
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientCompany'
+              example: Operação bem-sucedida
+        "404":
+          description: Requisição não encontrada
+          content:
+            application/json:
+              example: Not Found
+    post:
+      tags:
+        - Clientes Empresas
+      summary: Cria um nova vinculação de clientes a empresas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientCompanyPost'
+      responses:
+        "200":
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientCompany'
+        "400":
+          description: Requisição Não encontrada
+          content:
+            applicatio/json:
+              example: Not Found
+  /client-company/{id}:
+    get:
+      tags:
+        - Clientes Empresas
+      summary: Recupera uma vinculação de clientes a empresas pelo ID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientCompany'
+              example: Busca realizada com Sucesso
+        "404":
+          description: Requisição não encontrada
+          content:
+            application/json:
+              example: Not Found
+      security:
+      - auth: []
+    put:
+      tags:
+        - Clientes Empresas
+      summary: Atualiza uma vinculação entre clientes a empresas existente
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientCompanyPut'
+      responses:
+        "200":
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientCompany'
+        "404":
+          description: Campanha não encontrada
+          content:
+            application/json:
+              example: Not Found
+      security:
+      - auth: []
+    delete:
+      tags:
+        - Clientes Empresas
+      summary: Apaga uma vinculação entre um cliente e uma empresa existente
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Campanha deletada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientCompany'
+        "404":
+          description: Campanha não encontrada
+          content:
+            application/json:
+              example: Not Found
+      security:
+      - auth: []
+  /client-membership-campaign:
+    get:
+      tags:
+        - Adesao Clientes Campanhas
+      summary: Recupera detalhes sobre as Adesões Clientes Campanhas
+      responses:
+        '200':
+          description: Sucesso
+          content:
+           application/json:
+             schema:
+               $ref: '#/components/schemas/ClientMembershipCampaign'
+             example: Operação bem-sucedida
+        '404':
+          description: Operação não encontrada
+          content:
+            application/json:
+              example: Not Found
+    post:
+      tags:
+        - Adesao Clientes Campanhas
+      summary: Cria nova Operação
+      requestBody:
+        content:
+          application/json:
+             schema:
+              $ref: '#/components/schemas/ClientMembershipCampaignPost'
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientMembershipCampaign'
+        '400':
+          description: Operação Não encontrada
+          content:
+            applicatio/json:
+              example: Not Found
+  /client-membership-campaign/{id}:
+    parameters:
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+    get:
+      tags:
+        - Adesao Clientes Campanhas
+      summary: Recupera uma Operação pelo ID
+      security:
+        - auth: []
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientMembershipCampaign'
+              example: Busca realizada com Sucesso
+        '404':
+          description: Operação não encontrada
+          content:
+            application/json:
+              example: Not Found
+    put:
+      tags:
+        - Adesao Clientes Campanhas
+      summary: Atualiza uma Operação existente
+      security:
+        - auth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+               $ref: '#/components/schemas/ClientMembershipCampaignPut'
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+               $ref: '#/components/schemas/ClientMembershipCampaign'
+        '404':
+          description: Operação não encontrada
+          content:
+            application/json:
+              example: Not Found
+    delete:
+      tags:
+        - Adesao Clientes Campanhas
+      summary: Apaga uma Operação existente
+      security:
+        - auth: []
+      responses:
+        '200':
+          description: Operação deletada com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Operação deletada com sucesso
+        '404':
+          description: Operação não encontrada
+          content:
+            application/json:
+              example: Not Found
+  /product-campaign:
+    get:
+      tags:
+        - Produtos Campanhas
+      summary: Recupera detalhes sobre as vinculaçõe dos Produtos nas Campanhas
+      responses:
+        '200':
+          description: Sucesso
+          content:
+           application/json:
+             schema:
+               $ref: '#/components/schemas/ProductCampaign'
+             example: Operação bem-sucedida
+        '404':
+          description: Operação não encontrada
+          content:
+            application/json:
+              example: Not Found
+    post:
+      tags:
+        - Produtos Campanhas
+      summary: Cria nova Vinculação de Produto a Campanhas
+      requestBody:
+        content:
+          application/json:
+             schema:
+              $ref: '#/components/schemas/ProductCampaignPost'
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductCampaign'
+        '400':
+          description: Vinculação Não encontrada
+          content:
+            applicatio/json:
+              example: Not Found
+  /product-campaign/{id}:
+    parameters:
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+    get:
+      tags:
+        - Produtos Campanhas
+      summary: Recupera uma Vinculação de Produtos a Campanhas pelo ID
+      security:
+        - auth: []
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductCampaign'
+              example: Busca realizada com Sucesso
+        '404':
+          description: Vinculação não encontrada
+          content:
+            application/json:
+              example: Not Found
+    put:
+      tags:
+        - Produtos Campanhas
+      summary: Atualiza uma Vinculação de Produtos a Campanhas existente
+      security:
+        - auth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+               $ref: '#/components/schemas/ProductCampaignPut'
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+               $ref: '#/components/schemas/ProductCampaign'
+        '404':
+          description: Vinculação não encontrada
+          content:
+            application/json:
+              example: Not Found
+    delete:
+      tags:
+        - Produtos Campanhas
+      summary: Apaga uma Vinculação de Produtos a Campanhas existente
+      security:
+        - auth: []
+      responses:
+        '200':
+          description: Vinculação deletada com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Vinculação deletada com sucesso
+        '404':
+          description: Vinculação não encontrada
+          content:
+            application/json:
+              example: Not Found 
+  /transaction:
+    get:
+      tags:
+        - Transacoes
+      summary: Recupera detalhes sobre as vinculaçõe dos Produtos nas Campanhas
+      responses:
+        '200':
+          description: Sucesso
+          content:
+           application/json:
+             schema:
+               $ref: '#/components/schemas/Transaction'
+             example: Operação bem-sucedida
+        '404':
+          description: Operação não encontrada
+          content:
+            application/json:
+              example: Not Found
+    post:
+      tags:
+        - Transacoes
+      summary: Cria nova Vinculação de Produto a Campanhas
+      requestBody:
+        content:
+          application/json:
+             schema:
+              $ref: '#/components/schemas/TransactionPost'
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '400':
+          description: Vinculação Não encontrada
+          content:
+            applicatio/json:
+              example: Not Found
+  /transaction/{id}:
+    parameters:
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+    get:
+      tags:
+        - Transacoes
+      summary: Recupera uma Vinculação de Produtos a Campanhas pelo ID
+      security:
+        - auth: []
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+              example: Busca realizada com Sucesso
+        '404':
+          description: Vinculação não encontrada
+          content:
+            application/json:
+              example: Not Found
+    put:
+      tags:
+        - Transacoes
+      summary: Atualiza uma Vinculação de Produtos a Campanhas existente
+      security:
+        - auth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+               $ref: '#/components/schemas/TransactionPut'
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+               $ref: '#/components/schemas/Transaction'
+        '404':
+          description: Vinculação não encontrada
+          content:
+            application/json:
+              example: Not Found
+    delete:
+      tags:
+        - Transacoes
+      summary: Apaga uma Vinculação de Produtos a Campanhas existente
+      security:
+        - auth: []
+      responses:
+        '200':
+          description: Vinculação deletada com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Vinculação deletada com sucesso
+        '404':
+          description: Vinculação não encontrada
+          content:
+            application/json:
+              example: Not Found 
+components:
+  securitySchemes:
+    auth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Company:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        razao_social:
+          type: string
+        cnpj:
+          type: string
+        moeda:
+          type: string
+        simbolo_moeda:
+          type: string
+        conversao_real:
+          type: string
+        id_empresa_parceiro:
+          type: integer
+        usuarios_id_inserido:
+          type: integer
+        criado_em:
+          type: string
+        usuarios_id_atualizado:
+          type: integer
+        modificado_em:
+          type: string
+    CompanyPost:
+      type: object
+      properties:
+        nome:
+          type: string
+          maxLength: 255
+          example: Empresa Teste
+        razao_social:
+          type: string
+          maxLength: 255
+          example: Razão social Teste
+        cnpj:
+          type: string
+          maxLength: 14
+          example: 11234567000198
+        moeda:
+          type: string
+          maxLength: 20
+          example: Gold
+        simbolo_moeda:
+          type: string
+          example: G$
+        conversao_real:
+          type: string
+          example: 2.2
+        id_empresa_parceiro:
+          type: integer
+          example: 1
+    CompanyPut:
+      type: object
+      properties:
+        nome:
+          type: string
+          maxLength: 255
+          example: Empresa Teste
+        razao_social:
+          type: string
+          maxLength: 255
+          example: Razão social Teste
+        moeda:
+          type: string
+          maxLength: 20
+          example: Gold
+        simbolo_moeda:
+          type: string
+          example: G$
+        conversao_real:
+          type: string
+          example: 2.2
+    Client:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        razao_social:
+          type: string
+        cpf:
+          type: string
+        email:
+          type: string
+        telefone:
+          type: string
+        usuarios_id_inserido:
+          type: integer
+        criado_em:
+          type: string
+        usuarios_id_atualizado:
+          type: integer
+        modificado_em:
+          type: string
+    ClientPost:
+      type: object
+      properties:
+        nome:
+          type: string
+          maxLength: 255
+          example: Cliente Exemplo
+        cpf:
+          type: string
+          maxLength: 14
+          example: 1388765675433
+        email:
+          type: string
+          maxLength: 255
+          example: teste@teste.com
+        telefone:
+          type: string
+          maxLength: 20
+          example: 23434554
+    ClientPut:
+      type: object
+      properties:
+        nome:
+          type: string
+          maxLength: 255
+          example: Cliente Exemplo
+        cpf:
+          type: string
+          maxLength: 14
+          example: 1388765675433
+        email:
+          type: string
+          maxLength: 255
+          example: teste@teste.com
+        telefone:
+          type: string
+          maxLength: 20
+          example: 23434554
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+        empresa_id:
+          type: integer
+        descricao:
+          type: string
+        para_resgate:
+          type: string
+        qtde:
+          type: integer
+        usuarios_id_inserido:
+          type: integer
+        criado_em:
+          type: string
+        usuarios_id_atualizado:
+          type: integer
+        modificado_em:
+          type: string
+    ProductPost:
+      type: object
+      properties:
+        empresa_id:
+          type: integer
+          example: 3
+        descricao:
+          type: string
+          maxLength: 255
+          example: 'Teste de Ambiente'
+        para_resgate:
+          type: string
+          maxLength: 2
+          example: S
+        qtde:
+          type: integer
+          example: 3
+    ProductPut:
+      type: object
+      properties:
+        empresa_id:
+          type: integer
+          example: 3
+        descricao:
+          type: string
+          maxLength: 255
+          example: 'Teste de Ambiente'
+        para_resgate:
+          type: string
+          maxLength: 2
+          example: S
+        qtde:
+          type: integer
+          example: 3
+        usuarios_id_atualizado:
+          type: integer
+          example: 1
+    Operation:
+      type: object
+      properties:
+        id:
+          type: integer
+        empresa_id:
+          type: integer
+        descricao:
+          type: string
+        tipo_transacao:
+          type: string
+        usuarios_id_inserido:
+          type: integer
+        criado_em:
+          type: string
+        usuarios_id_atualizado:
+          type: integer
+        modificado_em:
+          type: string
+    OperationPost:
+      type: object
+      properties:
+        descricao:
+          type: string
+          maxLength: 255
+          example: 'Credito Primário'
+        tipo_transacao:
+          type: string
+          maxLength: 2
+          example: C
+        usuarios_id_inserido:
+          type: integer
+          example: 1
+    OperationPut:
+      type: object
+      properties:
+        descricao:
+          type: string
+          maxLength: 255
+          example: 'Credito Primário'
+        tipo_transacao:
+          type: string
+          maxLength: 2
+          example: C
+    Campaign:
+      type: object
+      properties:
+        id:
+          type: integer
+        empresa_id:
+          type: integer
+        data_inicio:
+          type: integer
+        data_fim:
+          type: integer
+        ativa_carteira_cash:
+          type: string
+        ativa_carteira_pontos:
+          type: string
+        ativa_resgate_produtops:
+          type: string
+        pontos_expiram_apos_campanha:
+          type: string
+        usuarios_id_inserido:
+          type: integer
+        criado_em:
+          type: string
+        usuarios_id_atualizado:
+          type: integer
+        modificado_em:
+          type: string
+    CampaignPost:
+      type: object
+      properties:
+        empresa_id:
+          type: integer
+          example: 3
+        data_inicio:
+          type: integer
+        data_fim:
+          type: integer
+        ativa_carteira_cash:
+          type: string
+          example: S
+        ativa_carteira_pontos:
+          type: string
+          example: "N"
+        ativa_resgate_produtos:
+          type: string
+          example: S
+        pontos_expiram_apos_campanha:
+          type: string
+          example: "N"
+    CampaignPut:
+      type: object
+      properties:
+        empresa_id:
+          type: integer
+          example: 3
+        data_inicio:
+          type: integer
+        data_fim:
+          type: integer
+        ativa_carteira_cash:
+          type: string
+          example: S
+        ativa_carteira_pontos:
+          type: string
+          example: "N"
+        ativa_resgate_produtos:
+          type: string
+          example: S
+        pontos_expiram_apos_campanha:
+          type: string
+          example: "N"
+    ClientCompany:
+      type: object
+      properties:
+        id:
+          type: integer
+        empresa_id:
+          type: integer
+        cliente_id:
+          type: integer
+        id_cliente_parceiro:
+          type: integer
+        usuarios_id_inserido:
+          type: integer
+        criado_em:
+          type: string
+        usuarios_id_atualizado:
+          type: integer
+        modificado_em:
+          type: string
+    ClientCompanyPost:
+      type: object
+      properties:
+        empresa_id:
+          type: integer
+          example: 3
+        cliente_id:
+          type: integer
+          example: 20
+        id_cliente_parceiro:
+          type: integer
+          example: 33
+    ClientCompanyPut:
+      type: object
+      properties:
+        empresa_id:
+          type: integer
+          example: 3
+        cliente_id:
+          type: integer
+          example: 20
+        id_cliente_parceiro:
+          type: integer
+          example: 33
+    ClientMembershipCampaign:
+      type: object
+      properties:
+        id:
+          type: integer
+        cliente_id:
+          type: integer
+        campanha_id:
+          type: integer
+        data:
+          type: string
+        aceite:
+          type: string
+        usuarios_id_inserido:
+          type: integer
+        criado_em:
+          type: string
+        usuarios_id_atualizado:
+          type: integer
+        modificado_em:
+          type: string
+    ClientMembershipCampaignPost:
+      type: object
+      properties:
+        cliente_id:
+          type: integer
+          example: 3
+        campanha_id:
+          type: integer
+          example: 9
+        aceite:
+          type: string
+          example: 'S'
+    ClientMembershipCampaignPut:
+      type: object
+      properties:
+        cliente_id:
+          type: integer
+          example: 3
+        campanha_id:
+          type: integer
+          example: 9
+        aceite:
+          type: string
+          example: 'S'
+    ProductCampaign:
+      type: object
+      properties:
+        id:
+          type: integer
+        produto_id:
+          type: integer
+        produto_descricao:
+          type: string
+        campanha_id:
+          type: string
+        operacao_id:
+          type: integer
+        tipo_fator:
+          type: string
+        fator:
+          type: number
+          format: float
+        modalidade:
+          type: string
+        tipo_concessao:
+          type: string
+        inicio_resgate:
+          type: integer
+        expira_resgate:
+          type: integer
+        id_produco_parceiro:
+          type: integer
+        usuarios_id_inserido:
+          type: integer
+        criado_em:
+          type: string
+        usuarios_id_atualizado:
+          type: integer
+        modificado_em:
+          type: string
+    ProductCampaignPost:
+      type: object
+      properties:
+        produto_id:
+          type: integer
+          example: 3
+        produto_descricao:
+          type: string
+          example: "Produto Teste"
+        campanha_id:
+          type: string
+          example: 6
+        operacao_id:
+          type: integer
+          example: 3
+        tipo_fator:
+          type: string
+          example: "F"
+        fator:
+          type: number
+          format: float
+          example: 1.5
+        modalidade:
+          type: string
+          example: "C"
+        tipo_concessao:
+          type: string
+          example: 1
+        inicio_resgate:
+          type: integer
+          example: 10
+        expira_resgate:
+          type: integer
+          example: 30
+        id_produto_parceiro:
+          type: integer
+          example: 3
+    ProductCampaignPut:
+       type: object
+       properties:
+        produto_id:
+          type: integer
+          example: 3
+        produto_descricao:
+          type: string
+          example: "Produto Teste"
+        campanha_id:
+          type: string
+          example: 6
+        operacao_id:
+          type: integer
+          example: 3
+        tipo_fator:
+          type: string
+          example: "F"
+        fator:
+          type: number
+          format: float
+          example: 1.5
+        modalidade:
+          type: string
+          example: "C"
+        tipo_concessao:
+          type: string
+          example: 1
+        inicio_resgate:
+          type: integer
+          example: 10
+        expira_resgate:
+          type: integer
+          example: 30
+        id_produto_parceiro:
+          type: integer
+          example: 3
+    Transaction:
+      type: object
+      properties:
+        id:
+          type: integer
+        cliente_id:
+          type: integer
+        produto_campanha_id:
+          type: integer
+        data_transacao:
+          type: string
+        operacao_id:
+          type: integer
+        data_inicio:
+          type: string
+        data_fim:
+          type: string
+        status:
+          type: integer
+        pontos:
+          type: number
+          format: float
+        saldo:
+          type: number
+          format: float
+        valor_transacao:
+          type: number
+        forma_pagamento:
+          type: string
+        id_venda_parceiro:
+          type: integer
+        usuarios_id_inserido:
+          type: integer
+        criado_em:
+          type: string
+        usuarios_id_atualizado:
+          type: integer
+        modificado_em:
+          type: string
+    TransactionPost:
+      type: object
+      properties:
+        cliente_id:
+          type: integer
+        produto_campanha_id:
+          type: integer
+        operacao_id:
+          type: integer
+        status:
+          type: integer
+        pontos:
+          type: number
+          format: float
+        saldo:
+          type: number
+          format: float
+        valor_transacao:
+          type: number
+        forma_pagamento:
+          type: string
+        id_venda_parceiro:
+          type: integer
+        data_inicio:
+          type: string
+        data_fim:
+          type: string
+    TransactionPut:
+      type: object
+      properties:
+        cliente_id:
+          type: integer
+        produto_campanha_id:
+          type: integer
+        operacao_id:
+          type: integer
+        status:
+          type: integer
+        pontos:
+          type: number
+          format: float
+        saldo:
+          type: number
+          format: float
+        valor_transacao:
+          type: number
+        forma_pagamento:
+          type: string
+        id_venda_parceiro:
+          type: integer
+        data_inicio:
+          type: string
+        data_fim:
+          type: string
